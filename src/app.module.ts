@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UsersModule, PrismaModule], // distribui o
+  imports: [UsersModule, PrismaModule, ConfigModule.forRoot()], // distribui o
   // modulo
   controllers: [AppController],
   providers: [AppService],
