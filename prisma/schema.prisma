@@ -1,0 +1,19 @@
+model User {
+  id        String   @id @default(uuid()) // Gera um UUID automaticamente
+  email     String   @unique             // Garante e-mails únicos
+  username      String?  
+  password  String                    // Campo opcional
+  createdAt DateTime @default(now())      // Data de criação
+  updatedAt DateTime @updatedAt          // Atualiza automaticamente
+
+  @@map("users") // Nome da tabela no banco de dados
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}

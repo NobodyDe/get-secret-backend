@@ -1,0 +1,6 @@
+POST http://localhost:3000/users/check-email
+Content-Type: application/json
+
+{
+    "email": "henri@example.com"
+}
