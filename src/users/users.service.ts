@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -12,7 +12,15 @@ export class UsersService {
       where: { email },
       select: { id: true },
     });
+    if (!user) {
+      throw new UnauthorizedException('Email não encontrado');
+    }
     return { exists: !!user };
+  }
+
+  async findByEmail(email: string) {
+    const user = await this.prisma.user.findUnique({ where: { email } });
+    return user || null;
   }
 
   create(createUserDto: CreateUserDto) {
